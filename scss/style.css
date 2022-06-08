@@ -1,0 +1,123 @@
+.card-content, .form, main {
+  display: flex;
+  flex-direction: column;
+}
+
+html, body {
+  height: 100vh;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+ul {
+  list-style: none;
+}
+
+main {
+  justify-content: start;
+  align-items: center;
+  height: 100%;
+  padding-top: 100px;
+}
+
+.section {
+  background-color: #C4C4C4;
+  padding: 60px 80px;
+  width: 660px;
+  margin-bottom: 50px;
+}
+
+.form {
+  position: relative;
+  gap: 300px;
+}
+
+.searchInput {
+  width: 500px;
+  height: 61px;
+  padding: 12px;
+  font-size: 48px;
+}
+
+.card {
+  position: relative;
+  padding: 10px 20px 10px 10px;
+  min-height: 101px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 50px;
+  font-size: 24px;
+  background-color: #E27BEB;
+  border: 1px solid black;
+}
+
+.card-content {
+  gap: 10px;
+}
+
+.card__btn-delete {
+  position: relative;
+  width: 50px;
+  height: 50px;
+  flex-shrink: 0;
+  border: 2px solid transparent;
+  background-color: transparent;
+  cursor: pointer;
+  transition-duration: 1s;
+}
+.card__btn-delete::before, .card__btn-delete::after {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 22px;
+  width: 100%;
+  border: 2px solid #FF0000;
+}
+.card__btn-delete::before {
+  transform: rotate(45deg);
+}
+.card__btn-delete::after {
+  transform: rotate(-45deg);
+}
+.card__btn-delete:active::before, .card__btn-delete:active::after {
+  transform: scale(0.8);
+}
+
+datalist {
+  position: absolute;
+  background-color: white;
+  top: 61px;
+  border-radius: 0 0 5px 5px;
+  border-top: none;
+  width: 500px;
+}
+
+option {
+  background-color: white;
+  padding: 4px;
+  color: black;
+  font-size: 30px;
+  border: 1px solid blue;
+  cursor: pointer;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+option::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+.active {
+  background-color: #65CDF9;
+}
+
+/*# sourceMappingURL=style.css.map */
