@@ -20,13 +20,16 @@ let timer = null;
 
 let countCards = 0;
 
+let searchValue = searchInput.value;
+
+console.log(searchValue)
 
 const getRepositories = async (searchValue) => {
-
   try {
     if(searchValue) {
       const responseJson = await requestAPi(searchValue,PER_PAGE,pageNum);
       dataList.innerHTML='';
+      console.log(responseJson.items)
       arrRep = responseJson.items
       arrRep
         .forEach(({name,id}) => {
