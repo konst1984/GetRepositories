@@ -1,9 +1,12 @@
-.card-content, .form, main {
+.card-content,
+.form,
+main {
   display: flex;
   flex-direction: column;
 }
 
-html, body {
+html,
+body {
   height: 100vh;
   font-family: "Roboto", sans-serif;
   font-weight: 400;
@@ -27,7 +30,7 @@ main {
 }
 
 .section {
-  background-color: #C4C4C4;
+  background-color: #c4c4c4;
   padding: 60px 80px;
   width: 660px;
   margin-bottom: 50px;
@@ -54,7 +57,7 @@ main {
   align-items: center;
   gap: 50px;
   font-size: 24px;
-  background-color: #E27BEB;
+  background-color: #e27beb;
   border: 1px solid black;
 }
 
@@ -72,13 +75,14 @@ main {
   cursor: pointer;
   transition-duration: 1s;
 }
-.card__btn-delete::before, .card__btn-delete::after {
+.card__btn-delete::before,
+.card__btn-delete::after {
   content: "";
   position: absolute;
   left: -2px;
   top: 22px;
   width: 100%;
-  border: 2px solid #FF0000;
+  border: 2px solid #ff0000;
 }
 .card__btn-delete::before {
   transform: rotate(45deg);
@@ -86,7 +90,8 @@ main {
 .card__btn-delete::after {
   transform: rotate(-45deg);
 }
-.card__btn-delete:active::before, .card__btn-delete:active::after {
+.card__btn-delete:active::before,
+.card__btn-delete:active::after {
   transform: scale(0.8);
 }
 
@@ -117,7 +122,7 @@ option::-webkit-scrollbar {
 }
 
 .active {
-  background-color: #65CDF9;
+  background-color: #65cdf9;
 }
 
 /*# sourceMappingURL=style.css.map */
