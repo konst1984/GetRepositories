@@ -1,4 +1,4 @@
-import { createElement } from "./functions.js";
+import { createElement } from "./functions-behavior.js";
 
 const form = document.querySelector(".form");
 const reposList = createElement("div", "repos-list");

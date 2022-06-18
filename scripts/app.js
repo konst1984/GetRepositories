@@ -8,9 +8,9 @@ import {
   elementIsInFocus,
   addClass,
   removeClass,
-} from "./functions.js";
-import { requestAPi } from "./api.js";
-import { elemMaket } from "./card_maket.js";
+} from "./functions-behavior.js";
+import { requestAPi } from "./request-api.js";
+import { elemMaket } from "./card-maket.js";
 import {
   fragmentCard,
   form,
@@ -18,7 +18,7 @@ import {
   searchInput,
   dataList,
   reposList,
-} from "./domElements.js";
+} from "./dom-elements.js";
 
 const PER_PAGE = 5;
 
@@ -62,9 +62,12 @@ const getRepositories = async (searchValue) => {
   }
 };
 
-addListener(searchInput, "focus", () => {
-  showElem(dataList);
-});
+if(!showElem(dataList)){
+  addListener(searchInput, "focus", () => {
+    showElem(dataList);
+  })
+} else
+  searchInput.removeEventListener('focus', () => showElem(dataList))
 
 addListener(searchInput, "blur", () => {
   optionsList.forEach((option) => option.classList.remove("active"));
