@@ -59,6 +59,7 @@ main
   gap: 10px
 
 .card__btn-delete
+  $parent:  &
   position: absolute
   top:  40px
   right: 20px
@@ -80,14 +81,9 @@ main
     background: darkred
     border: 2px solid #FF0000
   &::before
-    transform: rotate(45deg)
+    transform: rotate(225deg)
   &::after
     transform: rotate(-45deg)
-  &:active::before,
-  &:active::after
-    transform: scale(0.8)
-
-
 
 datalist
   position: absolute
@@ -112,6 +108,6 @@ option::-webkit-scrollbar
   width: 0
   height: 0
 
-.option-item:focus-visible,
+.option-item:focus,
 .option-item:hover
   background-color: #65CDF9

@@ -86,13 +86,10 @@ main {
   border: 2px solid #FF0000;
 }
 .card__btn-delete::before {
-  transform: rotate(45deg);
+  transform: rotate(225deg);
 }
 .card__btn-delete::after {
   transform: rotate(-45deg);
-}
-.card__btn-delete:active::before, .card__btn-delete:active::after {
-  transform: scale(0.8);
 }
 
 datalist {
@@ -121,7 +118,7 @@ option::-webkit-scrollbar {
   height: 0;
 }
 
-.option-item:focus-visible,
+.option-item:focus,
 .option-item:hover {
   background-color: #65CDF9;
 }
