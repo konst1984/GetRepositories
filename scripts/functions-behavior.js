@@ -21,16 +21,6 @@ function addListener(target, event, callback) {
     : target.removeEventListener(event, callback);
 }
 
-const elementIsInFocus = (el) => el === document.activeElement;
-
-function addClassHoverElem(elem, elemList, nameClass) {
-  if (elem && elemList) {
-    elemList.forEach((elem) => elem.classList.remove(nameClass));
-    elem.classList.add(nameClass);
-  }
-  return true;
-}
-
 function debounce(fn, setTime) {
   let timer = null;
 
@@ -44,28 +34,4 @@ function debounce(fn, setTime) {
   };
 }
 
-function addClass(event, elemClass, elemList, actionClass) {
-  if (event.target.className === elemClass) {
-    elemList.forEach((option) => option.classList.remove(actionClass));
-    event.target.classList.add(actionClass);
-  }
-}
-
-function removeClass(event, elemClass, elemList, actionClass) {
-  if (event.target.className === elemClass) {
-    elemList.forEach((option) => option.classList.remove(actionClass));
-    event.target.classList.remove(actionClass);
-  }
-}
-
-export {
-  createElement,
-  debounce,
-  addListener,
-  addClassHoverElem,
-  showElem,
-  hideElem,
-  elementIsInFocus,
-  addClass,
-  removeClass,
-};
+export { createElement, debounce, addListener, showElem, hideElem };
