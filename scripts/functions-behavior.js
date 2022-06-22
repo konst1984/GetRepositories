@@ -1,27 +1,27 @@
-function createElement(elemTag, elemClass) {
+const createElement = (elemTag, elemClass) => {
   const element = document.createElement(elemTag);
   if (elemClass) element.classList.add(elemClass);
 
   return element;
-}
+};
 
-function hideElem(elem) {
+const hideElem = (elem) => {
   elem.style.display = "none";
   return true;
-}
+};
 
-function showElem(elem) {
+const showElem = (elem) => {
   elem.style.display = "block";
   return true;
-}
+};
 
-function addListener(target, event, callback) {
+const addListener = (target, event, callback) => {
   return target
     ? target.addEventListener(event, callback)
     : target.removeEventListener(event, callback);
-}
+};
 
-function debounce(fn, setTime) {
+const debounce = (fn, setTime) => {
   let timer = null;
 
   return function wrap(...args) {
@@ -32,6 +32,6 @@ function debounce(fn, setTime) {
       b();
     }, setTime);
   };
-}
+};
 
 export { createElement, debounce, addListener, showElem, hideElem };

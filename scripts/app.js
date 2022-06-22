@@ -5,40 +5,27 @@ import {
   showElem,
   hideElem,
 } from "./functions-behavior.js";
-import { requestAPi } from "./request-api.js";
-import { elemMaket } from "./card-maket.js";
+
 import {
-  fragmentCard,
   form,
   datalistFragment,
   searchInput,
   dataList,
-  reposList,
 } from "./dom-elements.js";
 
-const PER_PAGE = 5;
-
-const pageNum = 1;
-
-let currentCount = -1;
-
 let optionsList = [];
-
 let arrRep = [];
-
-let timer = null;
-
-let countCards = 0;
 
 const getRepositories = async (searchValue) => {
   try {
     if (searchValue) {
-      const responseJson = await requestAPi(searchValue, PER_PAGE, pageNum);
+      const res = await fetch(
+        `https://api.github.com/search/repositories?q=${searchValue}+in:name&per_page=5&page=1`
+      );
+      const responseJson = await res.json();
       dataList.innerHTML = "";
       responseJson.items.length === 0 && alert("Репозиторий не существует");
-      arrRep = responseJson.items;
-
-      arrRep.forEach(({ name, id }) => {
+      responseJson.items.forEach(({ name, id }) => {
         const option = createElement("option", "option-item");
         option.setAttribute("data-id", id);
         option.setAttribute("tabindex", 1);
@@ -49,6 +36,18 @@ const getRepositories = async (searchValue) => {
       datalistFragment.prepend(dataList);
       form.append(datalistFragment);
       optionsList = [...document.getElementsByClassName("option-item")];
+      optionsList.forEach((option) =>
+        option.addEventListener("click", (e) =>
+          createCard(e, responseJson.items)
+        )
+      );
+      optionsList.forEach((option) =>
+        option.addEventListener("keyup", (e) => {
+          if (e.keyCode === 13) {
+            e.target.click();
+          }
+        })
+      );
     } else {
       dataList.innerHTML = "";
     }
@@ -58,68 +57,42 @@ const getRepositories = async (searchValue) => {
   }
 };
 
-if (!showElem(dataList)) {
-  addListener(searchInput, "focus", (e) => {
-    showElem(dataList);
-  });
-} else searchInput.removeEventListener("focus", () => showElem(dataList));
-
-addListener(searchInput, "blur", (e) => {
-  currentCount = -1;
-  const focusElem = e.target.nextElementSibling;
-  if (!focusElem === dataList || focusElem.className !== "repos-list") {
-    return
-  }
-    hideElem(dataList);
-});
-
-function addCard(e, elem = e.target) {
-  countCards++;
+function createCard(e, arrRepos) {
   searchInput.value = "";
-  arrRep
-    .filter((item) => item.id == elem.getAttribute("data-id"))
+  const reposList = document.querySelector(".repos-list");
+  arrRepos
+    .filter((item, index) => item.id == e.target.getAttribute("data-id"))
     .forEach(({ name, full_name, stargazers_count }) => {
       const card = createElement("div", "card");
-      card.innerHTML = elemMaket(name, full_name, stargazers_count);
-      fragmentCard.append(card);
-      reposList.append(fragmentCard);
-      form.append(reposList);
+      card.innerHTML = `<div class="card-content">
+                          <p class="card-content__name">Name:  ${name}</p>
+                          <p class="card-content__owner">Owner:  ${full_name}</p>
+                          <p class="card-content__stars">Stars:  ${stargazers_count}</p>
+                       </div>
+                       <button class="card__btn-delete" type="button"></button>`;
+      reposList.append(card);
+      [...document.getElementsByClassName("card__btn-delete")].forEach(
+        (button) => {
+          button.addEventListener("click", function delCard(event) {
+            event.target.parentElement.remove();
+            event.target.removeEventListener("click", delCard);
+            hideElem(dataList);
+          });
+        }
+      );
+      hideElem(dataList);
     });
 }
 
-function handlerBody(event) {
-  if (
-    event.target.className === "searchInput" ||
-    event.target.className === "option-item"
-  ) {
-    showElem(dataList);
-  } else
-    timer = setTimeout(() => {
-      hideElem(dataList);
-    }, 100);
-
-  if (
-    (event.target.className === "option-item" && event.keyCode === undefined) ||
-    (event.target.className === "option-item" && event.keyCode === 13)
-  ) {
-    addCard(event);
-    hideElem(dataList);
-  }
-  if (
-    (event.target.className === "card__btn-delete" &&
-      event.keyCode === undefined) ||
-    (event.target.className === "card__btn-delete" && event.keyCode === 13)
-  ) {
-    event.target.parentElement.remove();
-  }
-}
-
-addListener(form, "submit", (event) => {
-  event.preventDefault();
+addListener(searchInput, "focusin", (e) => {
+  if (document.activeElement === searchInput) showElem(dataList);
 });
 
-addListener(document.body, "keyup", (e) => handlerBody(e));
-addListener(document.body, "click", (e) => handlerBody(e));
+addListener(searchInput, "blur", (e) => {
+  if (e.relatedTarget === null) {
+    hideElem(dataList);
+  }
+});
 
 function loadRepositories() {
   getRepositories(searchInput.value);
