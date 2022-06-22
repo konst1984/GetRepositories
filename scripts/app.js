@@ -60,7 +60,6 @@ const getRepositories = async (searchValue) => {
 
 if (!showElem(dataList)) {
   addListener(searchInput, "focus", (e) => {
-    console.log(e.target);
     showElem(dataList);
   });
 } else searchInput.removeEventListener("focus", () => showElem(dataList));
