@@ -58,7 +58,7 @@ function createCard(e, arrRepos) {
   searchInput.value = "";
   const reposList = document.querySelector(".repos-list");
   arrRepos
-    .filter((item, index) => item.id == e.target.getAttribute("data-id"))
+    .filter(item => item.id == e.target.getAttribute("data-id"))
     .forEach(({ name, full_name, stargazers_count }) => {
       const card = createElement("div", "card");
       card.innerHTML = `<div class="card-content">
@@ -81,7 +81,7 @@ function createCard(e, arrRepos) {
     });
 }
 
-addListener(searchInput, "focusin", (e) => {
+addListener(searchInput, "focusin", () => {
   if (document.activeElement === searchInput) showElem(dataList);
 });
 
