@@ -91,8 +91,4 @@ addListener(searchInput, "blur", (e) => {
   }
 });
 
-function loadRepositories() {
-  getRepositories(searchInput.value);
-}
-
-searchInput.addEventListener("input", debounce(loadRepositories, 300));
+searchInput.addEventListener("input", debounce(() => getRepositories(searchInput.value), 300));
