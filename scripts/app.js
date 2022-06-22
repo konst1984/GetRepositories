@@ -13,9 +13,6 @@ import {
   dataList,
 } from "./dom-elements.js";
 
-let optionsList = [];
-let arrRep = [];
-
 const getRepositories = async (searchValue) => {
   try {
     if (searchValue) {
@@ -35,7 +32,7 @@ const getRepositories = async (searchValue) => {
       });
       datalistFragment.prepend(dataList);
       form.append(datalistFragment);
-      optionsList = [...document.getElementsByClassName("option-item")];
+      const optionsList = [...document.getElementsByClassName("option-item")];
       optionsList.forEach((option) =>
         option.addEventListener("click", (e) =>
           createCard(e, responseJson.items)
