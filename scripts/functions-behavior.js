@@ -15,12 +15,6 @@ const showElem = (elem) => {
   return true;
 };
 
-const addListener = (target, event, callback) => {
-  return target
-    ? target.addEventListener(event, callback)
-    : target.removeEventListener(event, callback);
-};
-
 const debounce = (fn, setTime) => {
   let timer = null;
 
@@ -34,4 +28,4 @@ const debounce = (fn, setTime) => {
   };
 };
 
-export { createElement, debounce, addListener, showElem, hideElem };
+export { createElement, debounce, showElem, hideElem };

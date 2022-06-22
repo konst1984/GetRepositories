@@ -1,7 +1,6 @@
 import {
   createElement,
   debounce,
-  addListener,
   showElem,
   hideElem,
 } from "./functions-behavior.js";
@@ -35,6 +34,7 @@ const getRepositories = async (searchValue) => {
       datalistFragment.prepend(dataList);
       form.append(datalistFragment);
       const optionsList = [...document.getElementsByClassName("option-item")];
+      showElem(dataList)
 
       optionsList.forEach((option) =>
         option.addEventListener("click", function addCardInDocument(e) {
@@ -77,24 +77,15 @@ const createCard = (e, arrRepos) => {
         (button) => {
           button.addEventListener("click", function delCard(e) {
             e.target.parentElement.remove();
-            e.target.removeEventListener("click", delCard);
             hideElem(dataList);
+            searchInput.value = "";
+            e.target.removeEventListener("click", delCard);
           });
         }
       );
       hideElem(dataList);
     });
 };
-
-addListener(searchInput, "focusin", () => {
-  if (document.activeElement === searchInput) showElem(dataList);
-});
-
-addListener(searchInput, "blur", (e) => {
-  if (e.relatedTarget === null) {
-    hideElem(dataList);
-  }
-});
 
 searchInput.addEventListener(
   "input",
