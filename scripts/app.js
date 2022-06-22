@@ -14,6 +14,7 @@ import {
 } from "./dom-elements.js";
 
 const getRepositories = async (searchValue) => {
+
   try {
     if (searchValue) {
       const res = await fetch(
@@ -22,6 +23,7 @@ const getRepositories = async (searchValue) => {
       const responseJson = await res.json();
       dataList.innerHTML = "";
       responseJson.items.length === 0 && alert("Репозиторий не существует");
+
       responseJson.items.forEach(({ name, id }) => {
         const option = createElement("option", "option-item");
         option.setAttribute("data-id", id);
@@ -33,10 +35,12 @@ const getRepositories = async (searchValue) => {
       datalistFragment.prepend(dataList);
       form.append(datalistFragment);
       const optionsList = [...document.getElementsByClassName("option-item")];
+
       optionsList.forEach((option) =>
-        option.addEventListener("click", (e) =>
-          createCard(e, responseJson.items)
-        )
+        option.addEventListener("click", function addCardInDocument(e) {
+          createCard(e, responseJson.items);
+          option.removeEventListener("click", addCardInDocument);
+        })
       );
       optionsList.forEach((option) =>
         option.addEventListener("keyup", (e) => {
@@ -54,11 +58,11 @@ const getRepositories = async (searchValue) => {
   }
 };
 
-function createCard(e, arrRepos) {
+const createCard = (e, arrRepos) => {
   searchInput.value = "";
   const reposList = document.querySelector(".repos-list");
   arrRepos
-    .filter(item => item.id == e.target.getAttribute("data-id"))
+    .filter((item) => item.id == e.target.getAttribute("data-id"))
     .forEach(({ name, full_name, stargazers_count }) => {
       const card = createElement("div", "card");
       card.innerHTML = `<div class="card-content">
@@ -68,18 +72,19 @@ function createCard(e, arrRepos) {
                        </div>
                        <button class="card__btn-delete" type="button"></button>`;
       reposList.append(card);
+
       [...document.getElementsByClassName("card__btn-delete")].forEach(
         (button) => {
-          button.addEventListener("click", function delCard(event) {
-            event.target.parentElement.remove();
-            event.target.removeEventListener("click", delCard);
+          button.addEventListener("click", function delCard(e) {
+            e.target.parentElement.remove();
+            e.target.removeEventListener("click", delCard);
             hideElem(dataList);
           });
         }
       );
       hideElem(dataList);
     });
-}
+};
 
 addListener(searchInput, "focusin", () => {
   if (document.activeElement === searchInput) showElem(dataList);
@@ -91,4 +96,7 @@ addListener(searchInput, "blur", (e) => {
   }
 });
 
-searchInput.addEventListener("input", debounce(() => getRepositories(searchInput.value), 300));
+searchInput.addEventListener(
+  "input",
+  debounce(() => getRepositories(searchInput.value), 300)
+);
