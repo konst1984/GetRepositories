@@ -7,6 +7,7 @@ const fragmentCard = document.createDocumentFragment();
 const dataList = createElement("datalist");
 dataList.setAttribute("id", "complete-list");
 dataList.setAttribute("class", "complete-list");
+dataList.setAttribute("tabindex", "2");
 const datalistFragment = document.createDocumentFragment();
 
 export {

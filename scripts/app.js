@@ -67,13 +67,11 @@ if (!showElem(dataList)) {
 
 addListener(searchInput, "blur", (e) => {
   currentCount = -1;
-  const unBlurElem = e.target.nextElementSibling;
-  if (unBlurElem === dataList || unBlurElem.className === "repos-list") {
-    return;
+  const focusElem = e.target.nextElementSibling;
+  if (!focusElem === dataList || focusElem.className !== "repos-list") {
+    return
   }
-  timer = setTimeout(() => {
     hideElem(dataList);
-  }, 200);
 });
 
 function addCard(e, elem = e.target) {
