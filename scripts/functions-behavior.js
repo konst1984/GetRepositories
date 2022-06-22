@@ -7,12 +7,10 @@ const createElement = (elemTag, elemClass) => {
 
 const hideElem = (elem) => {
   elem.style.display = "none";
-  return true;
 };
 
 const showElem = (elem) => {
   elem.style.display = "block";
-  return true;
 };
 
 const debounce = (fn, setTime) => {
