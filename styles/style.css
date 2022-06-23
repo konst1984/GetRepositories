@@ -52,18 +52,20 @@ main {
 
 .card {
   position: relative;
-  padding: 10px 20px 10px 10px;
+  padding: 10px 50px 10px 10px;
   min-height: 101px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 50px;
+  word-wrap: break-word;
   font-size: 24px;
   background-color: #e27beb;
   border: 1px solid black;
 }
 
 .card-content {
+  max-width: 95%;
   gap: 10px;
 }
 
@@ -132,5 +134,6 @@ option::-webkit-scrollbar {
 .option-item:hover {
   background-color: #65cdf9;
 }
+
 
 /*# sourceMappingURL=style.css.map */
